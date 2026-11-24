@@ -45,7 +45,9 @@ export interface PanoramaHotspot {
   indexLabel: string;
   title: string;
   subtitle: string;
+  categoryLabel?: string;
   description: string;
+  supportingDetail?: string;
   spherical: {
     /** Horizontal angle in degrees (-180 to 180; 0 faces -Z) */
     yawDeg: number;
@@ -79,6 +81,7 @@ export interface DestinationDemoData {
   beforeYouGoDescription: string;
   beforeYouGoNote: string;
   beforeYouGoHint: string;
+  exploreCtaLabel: string;
   overviewKicker: string;
   overviewHeading: string;
   stagesHeading: string;
@@ -94,10 +97,17 @@ export interface DestinationDemoData {
   storyMoments?: StoryMomentCard[];
 }
 
+export type ViewerThemeId = 'sahyadri-dawn' | 'midnight-coastal';
+
 export interface PanoramaExperienceConfig {
   destinationId: DestinationId;
+  themeId: ViewerThemeId;
   panoramaUrl: string;
   panoramaLabel: 'Illustrative 360° Sample';
+  viewerHeaderTitle: string;
+  viewerHeaderSubtitle?: string;
+  viewerSupportingLine: string;
+  dragHintText: string;
   disclaimer: string;
   viewerAriaLabel: string;
   loadingTitle: string;
@@ -154,7 +164,8 @@ const KALSUBAI_BUNDLE: DestinationBundle = {
       'Step into an interactive 360° sunrise summit environment to drag around the horizon, inspect three landscape viewpoints, and optionally listen to mountain wind—then return directly to your exact reading position below.',
     beforeYouGoNote:
       'Transparency note: This viewer renders an illustrative 2:1 equirectangular Sahyadri-inspired sunrise sample environment rather than field-captured Kalsubai survey footage.',
-    beforeYouGoHint: 'Drag to look · 3 interactive viewpoints · Audio muted by default',
+    beforeYouGoHint: 'Drag to look · 3 viewpoints · Audio muted by default',
+    exploreCtaLabel: 'Explore this summit in 360°',
     overviewKicker: 'Destination Overview',
     overviewHeading: 'High above the Sahyadri skyline',
     stagesHeading: 'Sample Ascent Progression',
@@ -233,8 +244,13 @@ const KALSUBAI_BUNDLE: DestinationBundle = {
   },
   experience: {
     destinationId: 'kalsubai-summit',
+    themeId: 'sahyadri-dawn',
     panoramaUrl: '/src/assets/images/kalsubai_equirect_4k_final.jpg',
     panoramaLabel: 'Illustrative 360° Sample',
+    viewerHeaderTitle: 'Kalsubai Summit',
+    viewerSupportingLine:
+      'High-resolution illustrative 360° equirectangular summit environment inspired by the Sahyadri range.',
+    dragHintText: 'Drag to explore 360°',
     disclaimer:
       'High-resolution illustrative 360° equirectangular summit environment inspired by the Sahyadri range, demonstrating interactive panoramic previewing rather than field-captured survey footage.',
     viewerAriaLabel: 'Kalsubai Summit 360-degree immersive preview',
@@ -252,8 +268,10 @@ const KALSUBAI_BUNDLE: DestinationBundle = {
         indexLabel: '01',
         title: 'Summit Viewpoint',
         subtitle: 'Weathered Basalt Crest & Mountain Spur',
+        categoryLabel: 'Summit Crest',
         description:
-          'Standing directly atop fractured weathered basalt rock at the summit crest, a narrow ridge spur extends outward into the Western Ghats. Drag in any direction to inspect both the rocky ground underfoot and the full 360° skyline.',
+          'The final stretch opens up to weathered volcanic basalt and a narrow spur perched on the crest. From here, you can inspect both the rocky crown underfoot and the open Sahyadri skyline.',
+        supportingDetail: '1,646 m crest context · Open basalt footing',
         spherical: { yawDeg: -99, pitchDeg: -10 },
       },
       {
@@ -261,8 +279,10 @@ const KALSUBAI_BUNDLE: DestinationBundle = {
         indexLabel: '02',
         title: 'Surrounding Valley',
         subtitle: 'Deep Sahyadri Basin & Morning Mist',
+        categoryLabel: 'Valley Horizon',
         description:
-          'Sweeping across the right horizon, steep forested slopes drop into a wide Sahyadri valley blanketed by early-morning mist and flanked by flat-topped basalt mountain ranges fading into atmospheric haze.',
+          'Layered mountain ridges stretch into the distance above steep forested slopes and deep Sahyadri basins settled beneath early-morning mist.',
+        supportingDetail: 'Western Ghats topography · Mist-filled lower basin',
         spherical: { yawDeg: -27, pitchDeg: -6 },
       },
       {
@@ -270,8 +290,10 @@ const KALSUBAI_BUNDLE: DestinationBundle = {
         indexLabel: '03',
         title: 'Sunrise View',
         subtitle: 'Eastern Dawn Horizon & Soft Cloud Light',
+        categoryLabel: 'Eastern Dawn',
         description:
-          'Early-morning sunlight breaks cleanly above the distant eastern ridge on the left horizon, casting warm golden highlights across terraced mountain crests while keeping the deep valleys below in cool dawn shadow.',
+          'Watch the first light spread above the eastern ridge, casting warm golden highlights across terraced crests while keeping the valleys below in cool pre-dawn shadow.',
+        supportingDetail: 'Morning light orientation · Eastern ridge',
         spherical: { yawDeg: -142, pitchDeg: 7 },
       },
     ],
@@ -301,24 +323,25 @@ const ALIBAUG_BUNDLE: DestinationBundle = {
     cardHighlightValue: 'Arabian Sea Shoreline',
     cardSecondaryLabel: 'Sample Format',
     cardSecondaryValue: 'Overnight Tent Camp (Sample)',
-    heroImageUrl: '/src/assets/images/alibaug_camp_hero_1795534343905.jpg',
+    heroImageUrl: '/src/assets/images/alibaug_midnight_hero_1795537060161.jpg',
     heroImageAlt:
-      'Beachfront canvas camping tents lit by warm lanterns beside a small driftwood bonfire facing calm moonlit Arabian Sea waves',
-    cardImageUrl: '/src/assets/images/alibaug_camp_hero_1795534343905.jpg',
+      'Empty boutique beach campsite on the Konkan coast at night with warmly lit canvas bell tents, empty wooden chairs beside a glowing driftwood bonfire, and moonlit Arabian Sea waves',
+    cardImageUrl: '/src/assets/images/alibaug_midnight_hero_1795537060161.jpg',
     cardImageAlt:
-      'Beachfront canvas camping tents lit by warm lanterns beside a small driftwood bonfire facing calm moonlit Arabian Sea waves',
+      'Empty boutique beach campsite on the Konkan coast at night with warmly lit canvas bell tents, empty wooden chairs beside a glowing driftwood bonfire, and moonlit Arabian Sea waves',
     sidebarImageUrl: '/src/assets/images/alibaug_beach_atmosphere_1795534345795.jpg',
     sidebarImageAlt:
-      'Moonlit Arabian Sea waves washing across dark wet Alibaug sand beneath coconut palm silhouettes and starry sky',
+      'Moonlit Arabian Sea waves washing across dark wet Alibaug sand beneath coconut palm silhouettes and starry midnight sky',
     sidebarCaptionTitle: 'Night Coastline · Editorial Photography',
     sidebarCaptionText:
-      'Once evening shore breezes settle, open beach stretches grow remarkably quiet—leaving only tide rhythm, distant coastal lights, and clear night horizons.',
+      'Once evening shore breezes settle, open beach stretches grow remarkably quiet—leaving only tide rhythm, moonlit surf, and clear night horizons.',
     beforeYouGoHeadline: 'Feel the coastal night before you pack.',
     beforeYouGoDescription:
-      'Step inside an interactive 360° beach campsite after sunset. Look between lantern-lit tents, the warm bonfire ring, moonlit Arabian Sea waves, and the starry sky—and optionally mix ocean waves, night breeze, and crackling fire.',
+      'Step inside an interactive 360° beach campsite after sunset. Look between lantern-lit tents, empty chairs beside the warm bonfire, moonlit Arabian Sea waves, and the starry sky—and optionally mix ocean waves, night breeze, and crackling fire.',
     beforeYouGoNote:
       'Transparency note: Generated 360° scenery is illustrative until authentic Alibaug field footage is acquired, and does not depict a specific commercial campsite operator.',
-    beforeYouGoHint: 'Drag to look · 4 viewpoints · 3 optional sound layers (muted by default)',
+    beforeYouGoHint: 'Drag to look · 4 viewpoints · 3 optional sound layers',
+    exploreCtaLabel: 'Explore this camp in 360°',
     overviewKicker: 'Destination Overview',
     overviewHeading: 'Salt air, driftwood firelight, and an open sea horizon',
     stagesHeading: 'Sample Overnight Rhythm',
@@ -356,36 +379,36 @@ const ALIBAUG_BUNDLE: DestinationBundle = {
     ],
     overviewParagraphs: [
       'Unlike pre-dawn Sahyadri summit climbs, Alibaug night camping revolves around slow coastal stillness. Pitched tents sit just above the high-tide sand line beneath coconut palms and casuarina trees, facing out over the Arabian Sea.',
-      'This Phase 2 MyTravWay demonstration lets you preview how the night environment feels spatially and acoustically—balancing the warm contrast of a camp bonfire against dark shoreline surf and open night sky.',
+      'This Phase 2 MyTravWay demonstration lets you preview how the night environment feels spatially and acoustically—balancing the warm amber contrast of a driftwood bonfire and soft tent lanterns against cool moonlit shoreline surf and an open starry sky.',
     ],
     sampleRouteStages: [
       {
         stageNumber: '01',
-        title: 'Late Afternoon Arrival & Tent Check-In',
+        title: 'Late Afternoon Arrival & Shoreline Orientation',
         elevationNote: 'Sample rhythm · Golden hour setup',
         description:
-          'Arrive near sunset to settle into pitched shoreline tents, watch the Arabian Sea shift from amber to indigo, and orient yourself along the beach.',
+          'Arrive near sunset to settle into pitched shoreline tents, watch the Arabian Sea shift from amber to midnight navy, and take in the open beach.',
       },
       {
         stageNumber: '02',
-        title: 'Bonfire Lighting & Evening Gathering',
+        title: 'Bonfire Lighting & Evening Stillness',
         elevationNote: 'Sample rhythm · Warm sand circle',
         description:
-          'As sea air cools after dusk, campers gather around a small driftwood fire pit for conversation, acoustic songs, or quiet warmth.',
+          'As sea air cools after dusk, a small driftwood fire illuminates the central sand circle and empty canvas chairs facing the water.',
       },
       {
         stageNumber: '03',
-        title: 'Late-Night Tide Walks & Stargazing',
+        title: 'Moonlit Tide Walks & Stargazing',
         elevationNote: 'Sample rhythm · Low ambient light',
         description:
-          'Step away from camp lanterns toward the wet waterline to listen to steady ocean swells and trace constellations above the dark sea horizon.',
+          'Follow the wet waterline beneath open stars to listen to steady ocean swells and trace moonlight reflecting across the dark sea horizon.',
       },
       {
         stageNumber: '04',
-        title: 'Calm Coastal Morning & Chai',
+        title: 'Calm Coastal Morning & First Light',
         elevationNote: 'Sample rhythm · Early sea light',
         description:
-          'Wake to pastel dawn reflections on glassy morning surf, cool sand underfoot, and an unhurried breakfast before departing.',
+          'Wake to pastel dawn reflections on glassy morning surf, cool sand underfoot, and an unhurried breakfast beside the open tent doorway.',
       },
     ],
     samplePreparationNotes: [
@@ -394,66 +417,70 @@ const ALIBAUG_BUNDLE: DestinationBundle = {
       'Sample note: Store electronics in zip pouches to protect against fine sea mist and sand grains.',
       'Prototype disclosure: Sample overnight pacing, activities, and packing suggestions are illustrative only and do not represent guaranteed inclusions or a live MyTravWay booking.',
     ],
-    storySectionTitle: 'Sample Camp Moments',
-    storySectionSubtitle:
-      'Optional visual stories illustrating how an overnight coastal stay often unfolds outside the 360° environment.',
+    storySectionTitle: 'Imagine Your Moments',
+    storySectionSubtitle: 'Every destination has its own little moments.',
     storyDisclosure:
-      'Illustrative storytelling moments only: bonfire sessions, late-night snacks, quiet shoreline time, and morning tea vary by camp host, tide conditions, weather, and itinerary, and are not guaranteed in every trip package.',
+      'Aspirational storytelling themes only—illustrative environmental imagery depicting the mood of the coast rather than guaranteed activities included in a travel package.',
     storyMoments: [
       {
-        id: 'bonfire-friends',
+        id: 'the-coastal-escape',
         indexLabel: '01',
-        title: 'Friends sitting around a bonfire',
-        momentType: 'Evening · Illustrative moment',
+        title: 'The Coastal Escape',
+        momentType: 'Evening · Storytelling theme',
         caption:
-          'Shared warmth and unhurried conversation around glowing driftwood logs while waves break steadily behind the sand dune.',
-        imageUrl: '/src/assets/images/story_bonfire_friends_1795534345130.jpg',
+          'A peaceful evening with the sea in front of you and the city far behind.',
+        imageUrl: '/src/assets/images/story_coastal_escape_1795537059823.jpg',
         imageAlt:
-          'Four friends sitting around a glowing beach bonfire on dark sand at night with a canvas tent and ocean waves behind',
+          'Two empty wooden-frame canvas chairs beside a glowing brass lantern on dark beach sand facing the calm moonlit Arabian Sea',
       },
       {
-        id: 'midnight-maggi',
+        id: 'the-little-things',
         indexLabel: '02',
-        title: 'People enjoying midnight Maggi',
-        momentType: 'Late night · Illustrative moment',
+        title: 'The Little Things',
+        momentType: 'Nightfall · Storytelling theme',
         caption:
-          'Steaming steel bowls of hot noodles shared beside a warm camp lantern long after the beach grows quiet.',
-        imageUrl: '/src/assets/images/story_midnight_maggi_1795534346547.jpg',
+          'Warm lanterns, soft sand, a glowing bonfire and the sound of gentle waves.',
+        imageUrl: '/src/assets/images/story_little_things_1795537060929.jpg',
         imageAlt:
-          'Two campers enjoying steaming bowls of hot Maggi noodles beside a warm lantern outside a canvas beach tent at night',
+          'Glowing driftwood bonfire beside a woven sand mat, warm brass camp lantern, and softly illuminated open canvas tent facing dark ocean waves',
       },
       {
-        id: 'quiet-beach',
+        id: 'the-midnight-sky',
         indexLabel: '03',
-        title: 'Quiet beachside moments',
-        momentType: 'After midnight · Illustrative moment',
+        title: 'The Midnight Sky',
+        momentType: 'Midnight · Storytelling theme',
         caption:
-          'Stepping away from the group circle to sit facing the moonlit Arabian Sea, listening only to surf and breeze.',
-        imageUrl: '/src/assets/images/story_quiet_beach_1795534345989.jpg',
+          'A quiet night under the stars, with the ocean stretching into the distance.',
+        imageUrl: '/src/assets/images/story_midnight_sky_1795537061399.jpg',
         imageAlt:
-          'Camper sitting quietly in a canvas chair on dark beach sand looking out at moonlit waves under a starry sky',
+          'Wide starry midnight navy sky and soft moonlit clouds arching over the Arabian Sea shoreline and palm silhouettes',
       },
       {
-        id: 'peaceful-morning',
+        id: 'the-first-light',
         indexLabel: '04',
-        title: 'A peaceful morning after camping',
-        momentType: 'Early morning · Illustrative moment',
+        title: 'The First Light',
+        momentType: 'Dawn · Storytelling theme',
         caption:
-          'Unzipping the tent doorway to pastel dawn light, glassy low-tide ripples, and warm cups of morning chai on the sand.',
+          'The transition from a peaceful night to the first light of morning.',
         imageUrl: '/src/assets/images/story_peaceful_morning_1795534347240.jpg',
         imageAlt:
-          'Open canvas tent doorway looking out over calm early morning ocean waves with two steaming cups of chai on a wooden crate',
+          'Open canvas tent doorway looking out over calm early morning ocean waves with two steaming ceramic cups on a wooden crate',
       },
     ],
   },
   experience: {
     destinationId: 'alibaug-night-camping',
-    panoramaUrl: '/src/assets/images/alibaug_equirect_4k_final.jpg',
+    themeId: 'midnight-coastal',
+    panoramaUrl: '/src/assets/images/alibaug_midnight_equirect_4k.jpg',
     panoramaLabel: 'Illustrative 360° Sample',
+    viewerHeaderTitle: 'ALIBAUG',
+    viewerHeaderSubtitle: 'Night Camping Experience',
+    viewerSupportingLine: 'An evening by the sea, away from the noise of the city.',
+    dragHintText: 'Drag to explore your surroundings',
     disclaimer:
       'Illustrative 360° equirectangular night beach-camping scenery inspired by Alibaug’s Konkan coastline, shown until authentic field-captured Alibaug footage is acquired.',
     viewerAriaLabel: 'Alibaug Night Camping 360-degree immersive preview',
-    loadingTitle: 'Loading 360° Night Camp Panorama',
+    loadingTitle: 'Loading 360° Midnight Beach Escape',
     loadingSubtitle: 'Preparing high-resolution equirectangular coastal night view…',
     helpTitle: 'Exploring the 360° Night Camp',
     initialYawDeg: -119,
@@ -465,37 +492,45 @@ const ALIBAUG_BUNDLE: DestinationBundle = {
       {
         id: 'campsite',
         indexLabel: '01',
-        title: 'Campsite',
-        subtitle: 'Bell Tents & Coastal Palms',
+        title: 'The Campsite',
+        subtitle: 'Tents, Lanterns & Coastal Palms',
+        categoryLabel: 'Shoreline Camp',
         description:
-          'Spacious canvas bell tents rest beneath dark coconut palms and coastal dune grass, softly lit from inside by warm lanterns and delicate string lights over a woven sand mat.',
+          'Your little corner by the coast. A peaceful campsite surrounded by the sea, soft lights and the quiet atmosphere of the night.',
+        supportingDetail: 'Softly lit bell tents · Warm lanterns · Empty chairs on sand',
         spherical: { yawDeg: 166, pitchDeg: -3 },
       },
       {
         id: 'bonfire',
         indexLabel: '02',
-        title: 'Bonfire',
-        subtitle: 'Driftwood Fire & Wooden Chairs',
+        title: 'The Bonfire',
+        subtitle: 'Warm Driftwood Glow & Empty Chairs',
+        categoryLabel: 'Gathering Circle',
         description:
-          'At the heart of the clearing, visible driftwood logs burn with a steady amber glow while wooden-frame canvas chairs gather naturally on footprint-textured beach sand.',
+          'A glowing bonfire against the cool coastal night. The warmth of the flames creates a beautiful contrast with the moonlit beach.',
+        supportingDetail: 'Natural driftwood fire · Warm amber sand glow · Empty seating',
         spherical: { yawDeg: -106, pitchDeg: -22 },
       },
       {
         id: 'beach-at-night',
         indexLabel: '03',
-        title: 'Beach at Night',
-        subtitle: 'Arabian Sea Surf & Moonlit Horizon',
+        title: 'The Moonlit Shore',
+        subtitle: 'Arabian Sea Waves & Wet Sand',
+        categoryLabel: 'Arabian Sea Edge',
         description:
-          'Cool moonlit sand slopes gently toward calm Arabian Sea ripples, reflecting silver light along the shoreline with distant fishing boats and faint Konkan headland lights.',
+          'Step towards the shoreline and look across the Arabian Sea. Soft waves, a distant horizon and moonlight reflecting across the water.',
+        supportingDetail: 'Gentle coastal surf · Moonlight reflection · Wide open beach',
         spherical: { yawDeg: 0, pitchDeg: -4 },
       },
       {
         id: 'under-the-stars',
         indexLabel: '04',
         title: 'Under the Stars',
-        subtitle: 'Midnight Navy Sky & Moonlight',
+        subtitle: 'Midnight Navy Sky & Moonlit Clouds',
+        categoryLabel: 'Midnight Sky',
         description:
-          'Above the dark ocean horizon, natural moonlight illuminates drifting coastal clouds beneath a deep midnight navy sky dotted with crisp stars.',
+          'Look up at the night sky. A quiet moment beneath the stars, with the sound of the sea in the background.',
+        supportingDetail: 'Starry deep blue sky · Subtle moonlit clouds · Ocean horizon',
         spherical: { yawDeg: -5, pitchDeg: 34 },
       },
     ],

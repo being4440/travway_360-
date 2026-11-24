@@ -102,34 +102,40 @@ export function DestinationPreviewView({
       {/* BEFORE YOU GO — Optional 360° Launch Section */}
       <section
         id="before-you-go"
-        className="max-w-7xl mx-auto px-5 sm:px-8 pt-16 sm:pt-20 pb-8 scroll-mt-20"
+        className="max-w-7xl mx-auto px-5 sm:px-8 pt-12 sm:pt-16 pb-4 scroll-mt-20"
       >
-        <div className="rounded-2xl bg-[#183C32] text-[#F5F0E7] p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7 space-y-4">
-            <p className="text-xs font-medium tracking-wide text-[#C9B99D]">
-              Before You Go · Optional Interactive Preview · {experience.hotspots.length} Viewpoints
+        <div
+          className={`rounded-2xl border text-[#F5F0E7] p-7 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center ${
+            experience.themeId === 'midnight-coastal'
+              ? 'bg-[#0B1424] border-[#E5D3B3]/25'
+              : 'bg-[#183C32] border-[#C9B99D]/25'
+          }`}
+        >
+          <div className="lg:col-span-7 space-y-3.5">
+            <p className="text-xs font-medium tracking-wide text-[#E5D3B3]">
+              Before You Go · Optional 360° Preview · {experience.hotspots.length} Viewpoints
             </p>
-            <h2 className="font-editorial text-3xl sm:text-4xl font-normal tracking-tight text-[#FFFFFF]">
+            <h2 className="font-editorial text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-[#FFFFFF]">
               {destination.beforeYouGoHeadline}
             </h2>
-            <p className="text-[15px] sm:text-base text-[#F5F0E7]/85 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-[#F5F0E7]/85 leading-relaxed max-w-2xl">
               {destination.beforeYouGoDescription}
             </p>
-            <p className="text-xs text-[#C9B99D] leading-relaxed">
+            <p className="text-xs text-[#C9B99D]/90 leading-relaxed pt-1">
               {destination.beforeYouGoNote}
             </p>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-center gap-4">
+          <div className="lg:col-span-5 flex flex-col items-start lg:items-end justify-center gap-3">
             <button
               type="button"
               onClick={onOpen360Viewer}
               onMouseEnter={onPrefetch360Viewer}
               onFocus={onPrefetch360Viewer}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-4 rounded-lg bg-[#D68A45] text-[#151B19] text-sm sm:text-base font-semibold whitespace-nowrap shrink-0 hover:bg-[#e19652] transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5F0E7]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg bg-[#D68A45] text-[#151B19] text-sm font-semibold whitespace-nowrap shrink-0 hover:bg-[#e19652] transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5F0E7]"
             >
-              <Compass className="w-5 h-5" />
-              <span>Explore in 360°</span>
+              <Compass className="w-4 h-4" />
+              <span>{destination.exploreCtaLabel}</span>
             </button>
             <span className="text-xs text-[#F5F0E7]/70 lg:text-right">
               {destination.beforeYouGoHint}
@@ -232,7 +238,7 @@ export function DestinationPreviewView({
         </aside>
       </section>
 
-      {/* Optional Visual Storytelling Cards (Alibaug Night Camping, separate from 360° viewer) */}
+      {/* Optional Visual Storytelling Cards (Alibaug Midnight Escape, separate from 360° viewer) */}
       {destination.storyMoments && destination.storyMoments.length > 0 && (
         <section
           id="camp-moments"
@@ -241,8 +247,8 @@ export function DestinationPreviewView({
           <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14 sm:py-20">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-[#C9B99D]/45">
               <div className="max-w-2xl">
-                <p className="text-xs font-medium tracking-wide text-[#183C32] mb-2">
-                  Optional Visual Storytelling · Separate from 360° Environment
+                <p className="text-xs font-medium tracking-wide text-[#1E4D54] mb-2">
+                  Optional Visual Storytelling · Environmental Mood Only
                 </p>
                 <h2 className="font-editorial text-2xl sm:text-3xl font-normal text-[#151B19] mb-2">
                   {destination.storySectionTitle}
@@ -258,7 +264,7 @@ export function DestinationPreviewView({
                 aria-expanded={showStories}
                 className="self-start md:self-auto px-4 py-2 rounded-lg border border-[#C9B99D] text-xs font-medium text-[#151B19] whitespace-nowrap shrink-0 hover:bg-[#F5F0E7] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#D68A45]"
               >
-                {showStories ? 'Hide Camp Stories' : 'Show Camp Stories'}
+                {showStories ? 'Hide Moments' : 'Show Moments'}
               </button>
             </div>
 

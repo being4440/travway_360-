@@ -13,6 +13,7 @@ export default function App() {
     useState<DestinationId>('kalsubai-summit');
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const savedScrollYRef = useRef<number>(0);
+  const lastTriggerElRef = useRef<HTMLElement | null>(null);
 
   const currentBundle = DESTINATIONS[selectedDestinationId];
   const alternateDestinationId: DestinationId =
@@ -47,6 +48,8 @@ export default function App() {
 
   const handleOpenViewerForDestination = useCallback(
     (destinationId?: DestinationId) => {
+      lastTriggerElRef.current =
+        document.activeElement instanceof HTMLElement ? document.activeElement : null;
       if (destinationId && destinationId !== selectedDestinationId) {
         setSelectedDestinationId(destinationId);
         setActiveView('destination');
@@ -67,6 +70,9 @@ export default function App() {
     const restoreY = savedScrollYRef.current;
     requestAnimationFrame(() => {
       window.scrollTo({ top: restoreY, behavior: 'instant' });
+      if (lastTriggerElRef.current?.isConnected) {
+        lastTriggerElRef.current.focus({ preventScroll: true });
+      }
     });
   }, []);
 
@@ -156,7 +162,11 @@ export default function App() {
             <div
               role="status"
               aria-live="polite"
-              className="fixed inset-0 z-50 bg-[#151B19] text-[#F5F0E7] flex flex-col items-center justify-center p-6 text-center"
+              className={`fixed inset-0 z-50 text-[#F5F0E7] flex flex-col items-center justify-center p-6 text-center ${
+                currentBundle.experience.themeId === 'midnight-coastal'
+                  ? 'bg-[#0B1424]'
+                  : 'bg-[#151B19]'
+              }`}
             >
               <div className="w-8 h-8 rounded-full border-2 border-[#C9B99D]/30 border-t-[#D68A45] animate-spin mb-4" />
               <p className="font-editorial text-xl text-[#FFFFFF]">

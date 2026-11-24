@@ -10,20 +10,21 @@ An interactive, dual-destination web prototype for **MyTravWay** demonstrating h
 
 | Destination | Setting | Panorama Asset | Anchored Hotspots | Optional Soundscape |
 | :--- | :--- | :--- | :--- | :--- |
-| **Kalsubai Summit** (Phase 1) | Sahyadri Range, Maharashtra (`1,646 m` verified peak) | `4096 × 2048` (`2:1`) sunrise summit equirectangular | **3**: `01 Summit Viewpoint`, `02 Surrounding Valley`, `03 Sunrise View` | Single toggle: **Mountain Wind** (muted by default) |
-| **Alibaug Night Camping** (Phase 2) | Konkan Coast, Raigad, Maharashtra | `4096 × 2048` (`2:1`) moonlit beach campsite equirectangular | **4**: `01 Campsite`, `02 Bonfire`, `03 Beach at Night`, `04 Under the Stars` | Multi-channel mixer: **Ocean Waves**, **Gentle Night Wind**, **Bonfire Crackling** + **Play All / Mute All** (muted by default) |
+| **Kalsubai Summit** (Phase 1) | Sahyadri Range, Maharashtra (`1,646 m` verified peak) | `4096 × 2048` (`2:1`) sunrise summit equirectangular (`sahyadri-dawn` HUD theme) | **3**: `01 Summit Viewpoint`, `02 Surrounding Valley`, `03 Sunrise View` | Single toggle: **Mountain Wind** (muted by default) |
+| **Alibaug Night Camping** (Phase 2 — Midnight Beach Escape) | Konkan Coast, Raigad, Maharashtra | `4096 × 2048` (`2:1`) 100% human-free moonlit beach campsite equirectangular (`midnight-coastal` HUD theme) | **4**: `01 The Campsite`, `02 The Bonfire`, `03 The Moonlit Shore`, `04 Under the Stars` | Multi-channel mixer: **Ocean Waves**, **Gentle Night Wind**, **Bonfire Crackling** + **Play All / Mute All** (muted by default) |
 
 ---
 
 ## Key Features
 
 - **Editorial Landing Showcase**: Introduces the concept and lets visitors compare **Kalsubai Summit** and **Alibaug Night Camping**, with direct navigation to full destination pages or quick 360° previews.
-- **Accessible Destination Detail Pages**: Displays structured facts (**Verified** geographic data vs. **Sample** trip pacing), *"Before You Go"* 360° entry cards, narrative overviews, sample progression stages, preparation notes, and cross-destination switching.
-- **Optional Human Storytelling Cards (Alibaug)**: Dedicated, collapsible gallery separate from the 360° environment depicting *Friends sitting around a bonfire*, *People enjoying midnight Maggi*, *Quiet beachside moments*, and *A peaceful morning after camping*—explicitly disclosed as illustrative and not guaranteed in every package.
-- **Lazy-Loaded 360° WebGL Sphere Viewer**:
+- **Accessible Destination Detail Pages**: Displays structured facts (**Verified** geographic data vs. **Sample** trip pacing), theme-matched *"Before You Go"* 360° entry cards, narrative overviews, sample progression stages, preparation notes, and cross-destination switching.
+- **Optional Environmental Storytelling — *Imagine Your Moments* (Alibaug)**: Dedicated, collapsible gallery separate from the 360° environment depicting four strictly human-free coastal moments (*The Coastal Escape*, *The Little Things*, *The Midnight Sky*, and *The First Light*)—explicitly disclosed as aspirational mood themes rather than guaranteed package activities.
+- **Reusable Theme-Driven 360° WebGL Sphere Viewer**:
   - Built directly with native `THREE.WebGLRenderer`, `THREE.SphereGeometry` (inverted sphere with `DoubleSide`), and `OrbitControls` inside an isolated canvas container—keeping the initial page lightweight and preventing React 19 reconciler unmount conflicts.
-  - Mouse and touch drag-to-look, smooth wheel/button **Zoom In & Out**, **Reset View**, **Help** popover, keyboard **`Esc`** exit, and **scroll-position restoration** upon returning to trip details.
-  - Real-time 3D-to-2D projected hotspot markers rendered as accessible React DOM overlays with zero per-frame React re-renders.
+  - Supports theme-specific HUD palettes (`sahyadri-dawn` charcoal/forest for Kalsubai; `midnight-coastal` midnight navy, deep ocean blue, muted teal, warm amber, and soft champagne for Alibaug) driven purely by destination configuration.
+  - Smooth branded loading reveal, dismissible interaction hint (`"Drag to explore your surroundings"`), drag-vs-click protection, wheel & two-finger pinch-to-zoom, **Zoom In / Out**, **Reset View**, **Fullscreen**, **Help** popover, keyboard **`Esc`** dismissal, and **scroll + focus restoration** upon exiting.
+  - Real-time 3D-to-2D projected hotspot beacons with subtle CSS pulse rings, hover/focus name tooltips, and compact editorial cards (bottom-sheet overlay on mobile viewports) with zero per-frame React re-renders.
   - Automatic GPU capability detection (`MAX_TEXTURE_SIZE` downscaling guard, software-WebGL frame pacing, `webglcontextlost` handling) plus a **2D panoramic drag fallback** if WebGL is unavailable.
 - **Zero-404 Procedural Web Audio Engine**: Synthesizes mountain wind, rolling ocean swells, gentle coastal breeze, and crackling driftwood fire purely in-browser via the Web Audio API (`AudioContext`, pink/brown noise buffers, LFO-modulated bandpass/lowpass filters). Strictly opt-in (no autoplay) and immediately disposed on exit.
 
@@ -36,7 +37,7 @@ An interactive, dual-destination web prototype for **MyTravWay** demonstrating h
 | **UI Framework** | React + React DOM | `^19.0.1` — Component architecture, `lazy` + `Suspense` code splitting |
 | **Language** | TypeScript | `^7.0.2` — Strict static typing (`noEmit` check via `tsc`) |
 | **Build & Dev Server** | Vite + `@vitejs/plugin-react` | `^8.3.0` / `^6.1.1` — Fast HMR dev server (`:3000`) & custom `src/assets` bundle copy plugin |
-| **Styling & Design System** | Tailwind CSS v4 (`@tailwindcss/vite`) | `^4.3.3` — Custom theme tokens (`#183C32`, `#151B19`, `#F5F0E7`, `#C9B99D`, `#D68A45`) |
+| **Styling & Design System** | Tailwind CSS v4 (`@tailwindcss/vite`) | `^4.3.3` — Custom tokens (`#183C32`, `#151B19`, `#0B1424`, `#13293D`, `#1E4D54`, `#F5F0E7`, `#C9B99D`, `#E5D3B3`, `#D68A45`) |
 | **Typography** | Google Fonts | `Fraunces` (editorial display), `Plus Jakarta Sans` (body), `JetBrains Mono` (tabular indices) |
 | **3D & Panorama Engine** | Three.js (`three` + `@types/three`) | `^0.187.0` — Inverted spherical projection, `SRGBColorSpace` texture upload, `OrbitControls`, `anisotropy` filtering |
 | **Icons** | `lucide-react` | `^0.546.0` — Minimal affordance icons across HUD, audio controls, and cards |
@@ -52,7 +53,7 @@ An interactive, dual-destination web prototype for **MyTravWay** demonstrating h
 +-----------------------------------------------------------------------------------+
 |                                    src/App.tsx                                    |
 |  State: activeView ('intro' | 'destination'), selectedDestinationId, isViewerOpen |
-|  Ref: savedScrollYRef (restores exact scroll position on 360° modal exit)         |
+|  Refs: savedScrollYRef & lastTriggerElRef (restores scroll & focus on modal exit) |
 +-----------------------------------------+-----------------------------------------+
                                           |
           +-------------------------------+-------------------------------+
@@ -60,10 +61,11 @@ An interactive, dual-destination web prototype for **MyTravWay** demonstrating h
           v                               v                               v
 +-------------------+         +------------------------+      +-----------------------+
 |   TopNavBar.tsx   |         |  IntroLandingView.tsx  |      | DestinationPreviewView|
-| 3-zone header bar |         | Hero + 2 Destination   |      | Facts bar, Before You |
-| Overview / Dest / |         | cards (Kalsubai &      |      | Go CTA, Stages, Notes |
-| Before You Go     |         | Alibaug) + Rationale   |      | & Optional Story Cards|
-+-------------------+         +------------------------+      +-----------+-----------+
+| 3-zone header bar |         | Hero + 2 Destination   |      | Facts bar, themed     |
+| Overview / Dest / |         | cards (Kalsubai &      |      | Before You Go CTA,    |
+| Before You Go     |         | Alibaug) + Rationale   |      | Stages, Notes &       |
++-------------------+         +------------------------+      | Imagine Your Moments  |
+                                                              +-----------+-----------+
                                                                           |
                                        Lazy-loaded on demand (React.lazy) |
                                                                           v
@@ -82,13 +84,14 @@ An interactive, dual-destination web prototype for **MyTravWay** demonstrating h
 |         v                         v                                               |
 |  +-----------------------------+  +--------------------------------------------+  |
 |  | WebGLPanoramaViewport       |  | Fallback2DPanorama                         |  |
-|  | - Isolated <div ref> mount  |  | - Pointer drag U-panning + CSS scale zoom  |  |
-|  | - SphereGeometry(500,96,64) |  | - Projected 2D hotspot markers             |  |
-|  |   scaled (-1, 1, 1)         |  +--------------------------------------------+  |
-|  | - OrbitControls + damp FOV  |                                                  |
-|  | - Vector3.project() -> DOM  |  Shared HUD Overlays (no backdrop-filter):       |
-|  |   hotspot pins (zero R3F)   |  - Top bar (Help, Sound/Mixer, Mute All, Exit)   |
-|  +-----------------------------+  - Compact active hotspot card + Bottom dock     |
+|  | - Isolated <div ref> mount  |  | - Pointer drag U-panning + pinch/CSS zoom  |  |
+|  | - SphereGeometry(500,96,64) |  | - Projected 2D hotspot beacons             |  |
+|  | - OrbitControls + damp FOV  |  +--------------------------------------------+  |
+|  | - Pinch-to-zoom + drag guard|                                                  |
+|  | - Vector3.project() -> DOM  |  Theme-Driven HUD Overlays (VIEWER_THEMES):      |
+|  |   hotspot beacons (zero R3F)|  - Top info bar (Help, Sound/Mixer, Exit)      |
+|  +-----------------------------+  - Dismissible drag hint + Editorial card        |
+|                                   - Zoom/Reset/Fullscreen/Continue bottom dock    |
 +-----------------------------------------------------------------------------------+
                                           ^
                                           | Driven by reusable config
@@ -108,10 +111,10 @@ flowchart LR
     B -->|Explore in 360° / Prefetch on Hover| C
     C -->|WebGL Supported| D[Three.js 4K Equirectangular Sphere]
     C -->|No WebGL / Context Lost| E[2D Panoramic Drag Fallback]
-    D --> F[Drag / Zoom / Select Hotspots / Optional Sound]
+    D --> F[Drag / Pinch / Zoom / Hotspots / Fullscreen / Optional Sound]
     E --> F
     F -->|Esc / Exit / Continue to Trip Details| B
-    B -->|Alibaug Only| G[Optional Camp Moments Story Cards]
+    B -->|Alibaug Only| G[Imagine Your Moments - Human-Free Gallery]
     B -->|Switch Prototype| B
 ```
 
@@ -128,28 +131,28 @@ flowchart LR
 ├── README.md                                   # Project documentation
 └── src/
     ├── main.tsx                                # React 19 root mount
-    ├── index.css                               # Tailwind v4 theme variables & reduced-motion rules
-    ├── App.tsx                                 # Navigation state, lazy viewer & scroll restoration
+    ├── index.css                               # Tailwind v4 theme variables, pulse ring & reduced-motion rules
+    ├── App.tsx                                 # Navigation state, lazy viewer, scroll & focus restoration
     ├── assets/
     │   └── images/
     │       ├── hero_sahyadri_sunrise_1795532417756.jpg
     │       ├── kalsubai_summit_plateau_1795532418792.jpg
     │       ├── kalsubai_trail_ridge_1795532419006.jpg
-    │       ├── kalsubai_equirect_4k_final.jpg          # 4096x2048 2:1 summit panorama
-    │       ├── alibaug_camp_hero_1795534343905.jpg
+    │       ├── kalsubai_equirect_4k_final.jpg            # 4096x2048 2:1 summit panorama
+    │       ├── alibaug_midnight_hero_1795537060161.jpg   # Human-free midnight campsite hero/card
     │       ├── alibaug_beach_atmosphere_1795534345795.jpg
-    │       ├── alibaug_equirect_4k_final.jpg           # 4096x2048 2:1 night camp panorama
-    │       ├── story_bonfire_friends_1795534345130.jpg
-    │       ├── story_midnight_maggi_1795534346547.jpg
-    │       ├── story_quiet_beach_1795534345989.jpg
-    │       └── story_peaceful_morning_1795534347240.jpg
+    │       ├── alibaug_midnight_equirect_4k.jpg          # 4096x2048 2:1 human-free night panorama
+    │       ├── story_coastal_escape_1795537059823.jpg    # Imagine Your Moments: The Coastal Escape
+    │       ├── story_little_things_1795537060929.jpg     # Imagine Your Moments: The Little Things
+    │       ├── story_midnight_sky_1795537061399.jpg      # Imagine Your Moments: The Midnight Sky
+    │       └── story_peaceful_morning_1795534347240.jpg  # Imagine Your Moments: The First Light
     ├── components/
     │   ├── TopNavBar.tsx                       # Sticky 3-zone header navigation
     │   ├── IntroLandingView.tsx                # Landing hero & dual-destination cards
-    │   ├── DestinationPreviewView.tsx          # Facts, Before You Go, stages, notes & story cards
+    │   ├── DestinationPreviewView.tsx          # Facts, Before You Go, stages, notes & Imagine Your Moments
     │   └── ResilientImage.tsx                  # Image wrapper with graceful fallback UI
     ├── data/
-    │   └── destinations.ts                     # Reusable multi-destination, hotspot & audio config
+    │   └── destinations.ts                     # Reusable multi-destination, theme, hotspot & audio config
     └── immersive/
         ├── ImmersivePanoramaModal.tsx          # Fullscreen Three.js 360° viewer, HUD & 2D fallback
         ├── equirectangularTexture.ts           # Spherical math & MAX_TEXTURE_SIZE-safe image loader
