@@ -1,4 +1,5 @@
-<img width="482" height="287" alt="image" src="https://github.com/user-attachments/assets/8b9d99cd-2ef6-4533-ac0f-726ac1042ec4" /># MyTravWay — Experience Before You Arrive
+# MyTravWay
+
 deployed link 
 https://travway360.vercel.app/
 
