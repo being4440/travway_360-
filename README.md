@@ -5,7 +5,8 @@ https://travway360.vercel.app/
 
 An interactive, dual-destination web prototype for **MyTravWay** demonstrating how adventure travelers can optionally explore destinations inside a photorealistic 360° panoramic environment before reading trip details or planning a journey.
 
-> **Core Concept:** *"Experience the destination before you arrive."*
+- **Live Demo:** [https://travway360.vercel.app/](https://travway360.vercel.app/)
+- **Core Concept:** *"Experience the destination before you arrive."*
 
 ---
 

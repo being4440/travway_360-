@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Mountain } from 'lucide-react';
 
 interface ResilientImageProps {
@@ -18,16 +18,20 @@ export function ResilientImage({
 }: ResilientImageProps) {
   const [hasError, setHasError] = useState(false);
 
+  useEffect(() => {
+    setHasError(false);
+  }, [src]);
+
   if (hasError) {
     return (
       <div
         role="img"
         aria-label={alt}
-        className={`flex flex-col items-center justify-center bg-[#183C32] text-[#F5F0E7] p-6 text-center ${className}`}
+        className={`flex flex-col items-center justify-center bg-[#183B5B] text-[#FFFFFF] p-6 text-center ${className}`}
       >
-        <Mountain className="w-8 h-8 text-[#D68A45] mb-3" strokeWidth={1.5} />
+        <Mountain className="w-8 h-8 text-[#F4C84A] mb-3" strokeWidth={1.5} />
         <p className="font-editorial text-lg font-normal tracking-tight">{fallbackTitle}</p>
-        <p className="text-xs text-[#C9B99D] mt-1 max-w-xs">{alt}</p>
+        <p className="text-xs text-[#94A3B8] mt-1 max-w-xs">{alt}</p>
       </div>
     );
   }

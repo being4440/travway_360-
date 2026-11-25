@@ -1,11 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-forest: #183C32;
-  --color-charcoal: #151B19;
-  --color-cream: #F5F0E7;
-  --color-sandstone: #C9B99D;
-  --color-amber: #D68A45;
+  --color-navy-deep: #102B50;
+  --color-navy-dark: #0B1D35;
+  --color-navy-secondary: #183B5B;
+  --color-teal-primary: #087F89;
+  --color-turquoise: #16B8C1;
+  --color-orange-warm: #F47724;
+  --color-yellow-golden: #F4C84A;
+
+  --color-warm-ivory: #F5F2E9;
+  --color-pure-white: #FFFFFF;
+  --color-pale-teal: #DCEDEA;
+  --color-blue-grey-light: #EDF2F6;
+  --color-soft-cream: #FAF8F2;
+
+  --color-text-primary: #102B50;
+  --color-text-body: #475569;
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+
+  --color-border-light: #E5E7EB;
+  --color-border-warm: #E8E3D9;
+  --color-border-teal: #C8E2DF;
 
   --font-display: "Fraunces", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
@@ -15,9 +32,10 @@
 @layer base {
   html {
     font-family: var(--font-sans);
-    background-color: #F5F0E7;
-    color: #151B19;
+    background-color: #F5F2E9;
+    color: #102B50;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, .font-editorial {

@@ -91,7 +91,7 @@ export default function App() {
   }, [isViewerOpen]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F0E7] text-[#151B19]">
+    <div className="min-h-screen flex flex-col bg-[#F5F2E9] text-[#102B50]">
       <TopNavBar
         activeView={activeView}
         selectedDestinationId={selectedDestinationId}
@@ -120,35 +120,49 @@ export default function App() {
         )}
       </div>
 
-      <footer className="border-t border-[#C9B99D]/50 bg-[#F5F0E7]">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#151B19]/70">
-          <div className="space-y-1">
-            <p className="font-editorial text-sm font-semibold text-[#151B19]">
-              MyTravWay · Destination Preview Prototype (Phase 2)
-            </p>
-            <p>
-              Demonstration prototype for Kalsubai Summit and Alibaug Night Camping, Maharashtra. Illustrative 360° environments and sample trip notes are clearly labeled.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-6 shrink-0">
+      <footer className="border-t border-[#183B5B] bg-[#0B1D35] text-[#FFFFFF]">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+          <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center gap-5">
             <button
               type="button"
               onClick={handleNavigateIntro}
-              className="hover:text-[#151B19] transition-colors cursor-pointer"
+              aria-label="Return to MyTravWay overview"
+              className="w-16 h-16 rounded-xl bg-[#FFFFFF] p-2 inline-flex items-center justify-center shrink-0 border border-[#E8E3D9] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#16B8C1]"
+            >
+              <img
+                src="/assets/aistudio/mytravway-logo_f161cadf.png"
+                alt="MyTravWay"
+                className="w-full h-full object-contain"
+              />
+            </button>
+            <div className="space-y-1.5">
+              <p className="text-xs font-semibold tracking-wide text-[#16B8C1]">
+                Experience Before You Arrive
+              </p>
+              <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed max-w-xl">
+                Destination preview demonstration for Kalsubai Summit and Alibaug Night Camping, Maharashtra. Illustrative 360° environments, sample pacing, and verified terrain facts are clearly distinguished.
+              </p>
+            </div>
+          </div>
+          <div className="md:col-span-5 flex flex-wrap items-center md:justify-end gap-x-7 gap-y-3 text-xs font-medium text-[#EDF2F6]">
+            <button
+              type="button"
+              onClick={handleNavigateIntro}
+              className="hover:text-[#16B8C1] transition-colors cursor-pointer whitespace-nowrap"
             >
               Overview
             </button>
             <button
               type="button"
               onClick={() => handleSelectDestination('kalsubai-summit')}
-              className="hover:text-[#151B19] transition-colors cursor-pointer"
+              className="hover:text-[#16B8C1] transition-colors cursor-pointer whitespace-nowrap"
             >
               Kalsubai Summit
             </button>
             <button
               type="button"
               onClick={() => handleSelectDestination('alibaug-night-camping')}
-              className="hover:text-[#151B19] transition-colors cursor-pointer"
+              className="hover:text-[#16B8C1] transition-colors cursor-pointer whitespace-nowrap"
             >
               Alibaug Camping
             </button>
